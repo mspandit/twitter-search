@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Twitter handle:</b>
+  <%= @search_configuration.twitter_handle %>
+</p>
+
+<p>
+  <b>Twitter search string:</b>
+  <%= @search_configuration.twitter_search_string %>
+</p>
+
+<p>
+  <b>Twitter consumer key:</b>
+  <%= @search_configuration.twitter_consumer_key %>
+</p>
+
+<p>
+  <b>Twitter consumer secret:</b>
+  <%= @search_configuration.twitter_consumer_secret %>
+</p>
+
+<p>
+  <b>Twitter token:</b>
+  <%= @search_configuration.twitter_token %>
+</p>
+
+<p>
+  <b>Twitter secret:</b>
+  <%= @search_configuration.twitter_secret %>
+</p>
+
+
+<%= link_to 'Edit', edit_search_configuration_path(@search_configuration) %> |
+<%= link_to 'Back', search_configurations_path %>

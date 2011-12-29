@@ -1,0 +1,25 @@
+<%= form_for(@search_configuration) do |f| %>
+  <% if @search_configuration.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@search_configuration.errors.count, "error") %> prohibited this search_configuration from being saved:</h2>
+
+      <ul>
+      <% @search_configuration.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :twitter_handle %><br />
+    <%= f.text_field :twitter_handle %>
+  </div>
+  <div class="field">
+    <%= f.label :twitter_search_string %><br />
+    <%= f.text_field :twitter_search_string %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
