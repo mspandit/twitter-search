@@ -48,7 +48,7 @@ class SearchConfigurationsController < ApplicationController
 
     respond_to do |format|
       if @search_configuration.save
-        format.html { redirect_to TwitterOAuth::Client.new(:consumer_key => TWITTER_CONSUMER_KEY, :consumer_secret => TWITTER_CONSUMER_SECRET).request_token(oauth_callback: oauth_callback_path).authorize_url }
+        format.html { redirect_to TwitterOAuth::Client.new(:consumer_key => TWITTER_CONSUMER_KEY, :consumer_secret => TWITTER_CONSUMER_SECRET).request_token(oauth_callback: oauth_callback_url).authorize_url }
         format.json { render json: @search_configuration, status: :created, location: @search_configuration }
       else
         format.html { render action: "new" }
@@ -64,7 +64,8 @@ class SearchConfigurationsController < ApplicationController
 
     respond_to do |format|
       if @search_configuration.update_attributes(params[:search_configuration])
-        format.html { redirect_to TwitterOAuth::Client.new(:consumer_key => TWITTER_CONSUMER_KEY, :consumer_secret => TWITTER_CONSUMER_SECRET).request_token(oauth_callback: oauth_callback_path).authorize_url }
+        puts "*** #{oauth_callback_url}"
+        format.html { redirect_to TwitterOAuth::Client.new(:consumer_key => TWITTER_CONSUMER_KEY, :consumer_secret => TWITTER_CONSUMER_SECRET).request_token(oauth_callback: oauth_callback_url).authorize_url }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
