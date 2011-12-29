@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
   end
   
   def request_token
-    @request_token ||= client.request_token(oauth_callback: oauth_callback_url)
+    session[:request_token] ||= client.request_token(oauth_callback: oauth_callback_url)
   end
 end
