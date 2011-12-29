@@ -5,7 +5,8 @@ class OauthController < ApplicationController
       request_token.secret, 
       :oauth_verifier => params[:oauth_verifier]
     )
-    if client.authorized?
+    if SearchConfiguration.first.update_attributes({ twitter_token: access_token }) && client.authorized?
+      session[:request_token] = nil
       redirect_to SearchConfiguration.first, notice: "Successful authorization."
     else
       redirect_to SearchConfiguration.first, notice: "Unsuccessful authorization."
