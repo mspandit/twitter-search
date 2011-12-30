@@ -61,11 +61,16 @@ class SearchConfigurationsController < ApplicationController
   # PUT /search_configurations/1.json
   def update
     @search_configuration = SearchConfiguration.find(params[:id])
-
+    needs_authorization = params[:search_configuration][:twitter_handle] != @search_configuration.twitter_handle
     respond_to do |format|
       if @search_configuration.update_attributes(params[:search_configuration])
-        puts "*** #{oauth_callback_url}"
-        format.html { redirect_to request_token.authorize_url }
+        format.html do
+          if needs_authorization
+            redirect_to request_token.authorize_url
+          else
+            redirect_to @search_configuration, notice: "Successfully updated configuration"
+          end
+        end
         format.json { head :ok }
       else
         format.html { render action: "edit" }

@@ -1,0 +1,38 @@
+.row
+  .span16
+    %h1 Listing tweets
+    %table
+      %tr
+        %th Tweet
+        %th Content
+        %th User
+        %th Created At
+        %th
+        %th
+        %th
+      - @tweets.each do |tweet|
+        %tr
+          %td= tweet.tweet_id
+          %td= tweet.content
+          %td= tweet.user.name
+          %td= tweet.created_at
+          %td= link_to 'Show', tweet
+          %td= link_to 'Edit', edit_tweet_path(tweet)
+          %td= link_to 'Destroy', tweet, confirm: 'Are you sure?', method: :delete, class: "btn danger"
+
+    %br
+    = paginate @tweets
+
+    .actions
+      = link_to "Import Tweets", import_tweets_path, class: "btn primary"
+      containing #{SearchConfiguration.first.twitter_search_string} and mentioning #{SearchConfiguration.first.twitter_handle}
+    .actions
+      = form_tag({ action: :index, format: :csv }, method: :get) do
+        = submit_tag "Export Tweets", class: "btn primary"
+        %p
+          between 
+        %p
+          #{datetime_select nil, :from_date_time} UTC
+        and
+        %p
+          #{datetime_select nil, :to_date_time} UTC

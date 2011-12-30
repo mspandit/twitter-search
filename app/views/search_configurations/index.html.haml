@@ -1,0 +1,22 @@
+.row
+  .span16
+    %h1 Listing search_configurations
+    %table
+      %tr
+        %th Twitter handle
+        %th Twitter search string
+        %th Twitter token
+        %th Twitter secret
+        %th
+        %th
+        %th
+      - @search_configurations.each do |search_configuration|
+        %tr
+          %td= search_configuration.twitter_handle
+          %td= search_configuration.twitter_search_string
+          %td= search_configuration.twitter_token
+          %td= search_configuration.twitter_secret
+          %td= link_to 'Show', search_configuration
+          %td= link_to 'Edit', edit_search_configuration_path(search_configuration)
+          %td= link_to 'Destroy', search_configuration, confirm: 'Are you sure?', method: :delete, class: "btn danger"
+    = link_to('New Search configuration', new_search_configuration_path) if SearchConfiguration.all.empty?

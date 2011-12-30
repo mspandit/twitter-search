@@ -1,0 +1,4 @@
+%ul.nav
+  %li{ class: (%w(tweets).include?(params[:controller]) ? "active" : "") }= link_to "Tweets", tweets_url
+  %li{ class: (%w(users).include?(params[:controller]) ? "active" : "") }= link_to "Users", users_url
+  %li{ class: (%w(search_configurations).include?(params[:controller]) ? "active" : "") }= link_to "Configuration", search_configurations_url

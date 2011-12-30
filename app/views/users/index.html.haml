@@ -1,0 +1,21 @@
+.row
+  .span16
+    %h1 Listing users
+    %table
+      %tr
+        %th Twitter ID
+        %th Twitter screen name
+        %th Name
+        %th Profile image
+        %th 
+        %th 
+        %th 
+      - @users.each do |user|
+        %tr
+          %td= user.twitter_id 
+          %td= user.twitter_screen_name 
+          %td= user.name
+          %td= image_tag user.profile_image_url, width: 60
+          %td= link_to 'Show', user 
+          %td= link_to 'Edit', edit_user_path(user) 
+          %td= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete 

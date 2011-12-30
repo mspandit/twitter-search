@@ -1,0 +1,25 @@
+.row
+  .span16
+
+    %p
+      %b Twitter handle:
+      = @search_configuration.twitter_handle 
+
+
+    %p
+      %b Twitter search string:
+      = @search_configuration.twitter_search_string 
+
+
+    %p
+      %b Twitter token:
+      = @search_configuration.twitter_token 
+
+
+    %p
+      %b Twitter secret:
+      = @search_configuration.twitter_secret 
+
+    = link_to 'Edit', edit_search_configuration_path(@search_configuration)  
+    |
+    = link_to 'Back', search_configurations_path 

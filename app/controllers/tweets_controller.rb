@@ -1,12 +1,24 @@
 class TweetsController < ApplicationController
+  def datetime_param_to_string(which)
+    "#{params["#{which}(1i)"]}-#{params["#{which}(2i)"]}-#{params["#{which}(3i)"]} #{params["#{which}(4i)"]}:#{params["#{which}(5i)"]}"
+  end
+  
   # GET /tweets
   # GET /tweets.json
   def index
-    @tweets = Tweet.all
-
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @tweets }
+      format.html do
+        redirect_to search_configurations_path if SearchConfiguration.all.empty?
+        @tweets = Tweet.page(params[:page]).per(10)
+      end # index.html.erb
+      format.csv do
+        @tweets = Tweet.where("created_at > ?", datetime_param_to_string("from_date_time")).where("created_at < ?", datetime_param_to_string("to_date_time")).order("created_at desc")
+        render layout: false
+      end # index.csv.haml
+      format.json do
+        @tweets = Tweet.all
+        render json: @tweets
+      end
     end
   end
 
@@ -19,6 +31,14 @@ class TweetsController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @tweet }
     end
+  end
+  
+  # GET /tweets/import
+  def import
+    Delayed::Job.delete_all
+    Tweet.import
+    
+    redirect_to tweets_url, notice: "Tweets will be imported hourly."
   end
 
   # GET /tweets/new

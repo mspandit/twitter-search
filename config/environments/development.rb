@@ -28,3 +28,4 @@ TwitterSearch::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 end
+TWITTER_MENTIONS_PER_PAGE = 1
