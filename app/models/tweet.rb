@@ -13,13 +13,13 @@ class Tweet < ActiveRecord::Base
         ).mentions(count: TWITTER_MENTIONS_PER_PAGE, page: page))
         mentions.each do |mention| 
           unless (Tweet.find_by_tweet_id(mention["id"].to_s) || mention["text"].index(SearchConfiguration.first.twitter_search_string).nil?)
-            user = User.find_or_initialize_by_twitter_id(mention["user"]["id"])
+            user = User.find_or_initialize_by_twitter_id(mention["user"]["id"].to_s)
             user.twitter_screen_name = mention["user"]["screen_name"]
             user.name = mention["user"]["name"]
             user.profile_image_url = mention["user"]["profile_image_url"]
             user.save
             Tweet.create(
-              tweet_id: mention["id"],
+              tweet_id: mention["id"].to_s,
               content: mention["text"],
               user_id: user.id,
               created_at: mention["created_at"]
