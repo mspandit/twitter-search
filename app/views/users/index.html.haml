@@ -7,6 +7,7 @@
         %th Twitter screen name
         %th Name
         %th Profile image
+        %th Tweet count
         %th 
         %th 
         %th 
@@ -16,6 +17,8 @@
           %td= user.twitter_screen_name 
           %td= user.name
           %td= image_tag user.profile_image_url, width: 60
+          %td= user.tweets.count
           %td= link_to 'Show', user 
           %td= link_to 'Edit', edit_user_path(user) 
           %td= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete 
+    = paginate(@users)
